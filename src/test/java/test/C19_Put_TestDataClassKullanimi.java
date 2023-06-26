@@ -1,6 +1,17 @@
 package test;
 
-public class C19_Put_TestDataClassKullanimi {
+import baseUrl.JsonPlaceHolderBaseUrl;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.json.JSONObject;
+import org.junit.Test;
+import testData.TestDataJsonPlace;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
+
+public class C19_Put_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
 
     /*
     https://jsonplaceholder.typicode.com/posts/70 url'ine asagidaki body’e sahip bir PUT
@@ -27,4 +38,44 @@ public class C19_Put_TestDataClassKullanimi {
         "id":70
         }
   */
+
+    @Test
+    public void put01(){
+
+        // 1- Url ve Request Body hazirla
+
+        specJsonPlace.pathParams("pp1","posts","pp2",70);
+
+        TestDataJsonPlace testDataJsonPlace = new TestDataJsonPlace();
+
+        JSONObject reqBody = testDataJsonPlace.requestBodyOlusturJSON();
+
+        // 2- Expected Data hazirla
+
+        JSONObject expData = testDataJsonPlace.requestBodyOlusturJSON();  // reqBody 'le ayni oldugu icin kopyalayip
+                                                                          // sadece ismini degistirdik
+        // 3- Response'i kaydet
+
+        Response response = given()
+                                    .spec(specJsonPlace)
+                                    .contentType(ContentType.JSON)
+                             .when()
+                                    .body(reqBody.toString())
+                                    .get("/{pp1}/{pp2}");
+
+        response.prettyPrint();
+
+        // 4- Assertion
+
+        JsonPath respJP = response.jsonPath();
+
+        assertEquals(testDataJsonPlace.basariliStatusCode, response.getStatusCode());
+        assertEquals(testDataJsonPlace.contentType, response.getContentType());
+        assertEquals(testDataJsonPlace.connectionHeaderDegeri, response.getHeader("Connection"));
+
+        assertEquals(expData.get("userId"), respJP.get("userId"));
+        assertEquals(expData.get("id"), respJP.get("id"));
+        assertEquals(expData.get("title"), respJP.get("title"));
+        assertEquals(expData.get("body"), respJP.get("body"));
+    }
 }

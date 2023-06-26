@@ -4,11 +4,11 @@ import baseUrl.JsonPlaceHolderBaseUrl;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import testData.TestDataJsonPlace;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 
 public class C18_Get_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
@@ -33,13 +33,13 @@ public class C18_Get_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
     public void get01(){
 
         // 1- Url hazirla
-        specJsonPlace.pathParams("pp1","post","pp2",22);
+        specJsonPlace.pathParams("pp1","posts","pp2",22);
 
         // 2- Expected Data hazirla
 
         TestDataJsonPlace testDataJsonPlace = new TestDataJsonPlace();
 
-        JSONObject expData = testDataJsonPlace.expectedBodyOlustur();
+        JSONObject expData = testDataJsonPlace.expectedBodyOlusturJSON();
 
         // 3- REsponse'i kaydet
 
@@ -50,10 +50,12 @@ public class C18_Get_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
 
         JsonPath respJP = response.jsonPath();
 
-        Assert.assertEquals(expData.get("userId"), respJP.get("userId"));
-        Assert.assertEquals(expData.get("id"), respJP.get("id"));
-        Assert.assertEquals(expData.get("title"), respJP.get("title"));
-        Assert.assertEquals(expData.get("body"), respJP.get("body"));
+        assertEquals(testDataJsonPlace.basariliStatusCode, response.getStatusCode());
+
+        assertEquals(expData.get("userId"), respJP.get("userId"));
+        assertEquals(expData.get("id"), respJP.get("id"));
+        assertEquals(expData.get("title"), respJP.get("title"));
+        assertEquals(expData.get("body"), respJP.get("body"));
 
     }
 }
