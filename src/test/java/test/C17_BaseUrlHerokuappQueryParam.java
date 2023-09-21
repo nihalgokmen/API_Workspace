@@ -82,7 +82,7 @@ public class C17_BaseUrlHerokuappQueryParam extends HerokuAppBaseUrl {
 
         // 4- Assertion
 
-        response.then().assertThat().statusCode(200).body("bookingid", Matchers.hasSize(3));
+        response.then().assertThat().statusCode(200).body("bookingid", Matchers.hasSize(2));
     }
 
     @Test
@@ -95,5 +95,16 @@ public class C17_BaseUrlHerokuappQueryParam extends HerokuAppBaseUrl {
          donen response’un status code’unun 200 oldugunu ve “Jim Jackson” ismine sahip
          en az bir booking oldugunu test edin.
     */
+
+        specHerokuApp.pathParam("pp1","booking").queryParams("firstname", "Jim", "lastname","Jackson");
+
+        Response response = given().spec(specHerokuApp).when().get("/{pp1}");
+
+        response.prettyPrint();
+
+        response.then().assertThat().statusCode(200).body("booking.firstname",Matchers.equalTo("Jim"),
+                                                        "booking.lastname",Matchers.equalTo("Jackson"));
+
+
     }
 }

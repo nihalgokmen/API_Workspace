@@ -15,9 +15,9 @@ public class C10_Get_ResponseBodyTestiListKullanimi {
             status code'unun 200,
             ve content type'inin application/json,
             ve response body'sindeki
-                employees sayisinin 24
-                ve employee'lerden birinin "Ashton Cox"
-                ve girilen yaslar icinde 61,40 ve 30 degerlerinin oldugunu test edin
+            employees sayisinin 24
+            ve employee'lerden birinin "Ashton Cox"
+            ve girilen yaslar icinde 61,40 ve 30 degerlerinin oldugunu test edin
             test edin.
      */
 

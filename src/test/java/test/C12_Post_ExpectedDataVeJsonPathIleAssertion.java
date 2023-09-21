@@ -71,7 +71,7 @@ public class C12_Post_ExpectedDataVeJsonPathIleAssertion {
 
         expData.put("bookingid",24);
         expData.put("booking",reqBody);
-        expData.put("booking",reqBody);
+
 
         // 3- Response'i kaydet
 

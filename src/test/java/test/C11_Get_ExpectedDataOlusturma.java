@@ -15,6 +15,7 @@ public class C11_Get_ExpectedDataOlusturma {
     https://jsonplaceholder.typicode.com/posts/22 url'ine
     bir GET request yolladigimizda donen response body’sinin
     asagida verilen ile ayni oldugunu test ediniz
+
    Response body :
     {
     "userId":3,
@@ -44,7 +45,7 @@ public class C11_Get_ExpectedDataOlusturma {
         // 3- Response'i kaydet
         Response response = given().when().get(url);
 
-        response.prettyPeek();  // prettyprint'ten farkli olarak size responde ile ilgili tum tum degerleri dondurur
+        response.prettyPeek();  // prettyprint'ten farkli olarak siz'e response ile ilgili tum degerleri dondurur
 
         // 4- Asseertion
         JsonPath respJP = response.jsonPath();

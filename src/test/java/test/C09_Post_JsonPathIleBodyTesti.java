@@ -54,10 +54,10 @@ public class C09_Post_JsonPathIleBodyTesti {
 
         JSONObject reqBody = new JSONObject();
 
-        reqBody.put("firstname", "Ali");
+        reqBody.put("firstname", "Hasan");
         reqBody.put("lastname", "Bak");
-        reqBody.put("totalprice", 500);
-        reqBody.put("depositpaid", false);
+        reqBody.put("totalprice", 700);
+        reqBody.put("depositpaid", true);
         reqBody.put("bookingdates", bookingdates);
         reqBody.put("additionalneeds", "wi-fi");
 
@@ -79,10 +79,10 @@ public class C09_Post_JsonPathIleBodyTesti {
                         .assertThat()
                         .statusCode(200)
                         .contentType("application/json; charset=utf-8")
-                        .body("booking.firstname", equalTo("Ali"),
+                        .body("booking.firstname", equalTo("Hasan"),
                         "booking.lastname" , equalTo("Bak"),
-                                 "booking.totalprice" , equalTo(500),
-                                 "booking.depositpaid" , equalTo(false),
+                                 "booking.totalprice" , equalTo(700),
+                                 "booking.depositpaid" , equalTo(true),
                                  "booking.additionalneeds" , equalTo("wi-fi"),
                                  "booking.bookingdates.checkin" , equalTo("2021-06-01"),
                                  "booking.bookingdates.checkout" , equalTo("2021-06-10"));
